@@ -14,22 +14,23 @@ import com.lifxcontrol.ui.MainViewModel
 import com.lifxcontrol.ui.screens.ControlScreen
 import com.lifxcontrol.ui.screens.HomeSelectionScreen
 import com.lifxcontrol.ui.theme.LightControlTheme
-import com.lifxcontrol.worker.LightMonitorWorker
 
 class MainActivity : ComponentActivity() {
 
     private val notificationPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
-    ) { /* proceed regardless; notifications are optional */ }
+    ) { /* proceed regardless; notifications are optional */
+        LightMonitorService.start(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        } else {
+            LightMonitorService.start(this)
         }
-
-        LightMonitorWorker.schedule(this)
 
         setContent {
             LightControlTheme {
