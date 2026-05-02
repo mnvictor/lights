@@ -20,6 +20,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
@@ -85,7 +86,7 @@ class LightMonitorService : Service() {
 
     private suspend fun pollLoop(token: String, locationId: String, locationName: String) {
         val api = LifxApiClient.create(token)
-        while (isActive) {
+        while (currentCoroutineContext().isActive) {
             try {
                 val response = api.getLightsBySelector("location:$locationId")
                 if (response.isSuccessful) {
