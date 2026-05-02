@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LIFX Control</string>
+    <string name="notification_channel_name">Light Monitor</string>
+    <string name="notification_channel_desc">Notifications when lights turn on</string>
+</resources>
