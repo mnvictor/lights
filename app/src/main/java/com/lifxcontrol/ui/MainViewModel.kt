@@ -135,7 +135,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         _uiState.update { it.copy(isLoading = true, error = null) }
         try {
             val api = LifxApiClient.create(token)
-            val response = api.getLightsBySelector("location:$locationId")
+            val response = api.getLightsBySelector("location_id:$locationId")
             if (response.isSuccessful) {
                 val lights = response.body() ?: emptyList()
                 _uiState.update {
@@ -170,7 +170,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 val api = LifxApiClient.create(state.apiToken)
                 val targetPower = if (state.anyLightsOn) "off" else "on"
                 api.setState(
-                    "location:${state.selectedLocationId}",
+                    "location_id:${state.selectedLocationId}",
                     SetStateRequest(power = targetPower, duration = 0.5)
                 )
                 delay(600)

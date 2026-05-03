@@ -88,7 +88,7 @@ class LightMonitorService : Service() {
         val api = LifxApiClient.create(token)
         while (currentCoroutineContext().isActive) {
             try {
-                val response = api.getLightsBySelector("location:$locationId")
+                val response = api.getLightsBySelector("location_id:$locationId")
                 if (response.isSuccessful) {
                     val lights = response.body() ?: emptyList()
 
